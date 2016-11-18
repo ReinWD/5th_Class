@@ -3,6 +3,7 @@ package player;
 import javazoom.jl.player.jlp;
 import player.Threads.Lyric;
 import player.Threads.Music;
+import sun.awt.windows.ThemeReader;
 
 import java.io.BufferedReader;
 import java.util.Scanner;
@@ -49,15 +50,15 @@ public class main {
             case 1:
                 aPath[0] = args[0];
                 music = new Music(aPath);
-                music.run();
+                music.start();
                 break;
             case 2:
                 aPath[0] = args[0];
                 bPath[0] = args[1];
                 music = new Music(aPath);
                 lyric = new Lyric(bPath);
-                lyric.run();
-                music.run();
+                lyric.start();
+                music.start();
 
                 break;
             default:
@@ -70,11 +71,15 @@ public class main {
                         bPath[0] = args[i + 1];
                         music = new Music(aPath);
                         lyric = new Lyric(bPath);
-                        lyric.run();
-                        music.run();
+                        lyric.start();
+                        music.start();
+                        main n=new main();
+                        try{n.wait();}
+                        catch(Exception e){};
                     }
                 }
         }
-        System.out.println("播放结束");
+
+        System.out.println("播放开始");
     }
 }
